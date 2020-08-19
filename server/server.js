@@ -1,41 +1,25 @@
 require(`./config/config.js`);
-
+const mongoose = require(`mongoose`);
 const express = require(`express`);
 const app = express();
 
-// Middlewares
 app.use(express.urlencoded({ extended: false }));
+app.use( require(`./routes/user.js`));
 
-app.get(`/user`, (req, res) => {
-    res.json(`get Usuario`);
-});
+// Middlewares
 
-app.post(`/user`, (req, res) => {
-    let body = req.body;
-
-    if (body.name === undefined) {
-        res.status(400).json({
-    OK: false,
-            message: `name is necessary`
-        });
-    } else {
-        res.json({
-            user: body
-        });
+mongoose.connect(
+    process.env.URLDB,
+    {
+        useCreateIndex: true,
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    },
+    (err, res) => {
+        if (err) throw err;
+        console.log("base de datos ONLINE");
     }
-});
-
-app.put(`/user/:id`, (req, res) => {
-    let id = req.params.id;
-
-    res.json({
-        id
-    });
-});
-
-app.delete(`/user`, (req, res) => {
-    res.json(`delete Usuario`);
-});
+);
 
 app.listen(process.env.PORT, () => {
     console.log(`Listen to port ${process.env.PORT}`);
