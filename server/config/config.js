@@ -5,6 +5,17 @@ process.env.PORT = process.env.PORT || 3000;
 
 process.env.NODE_ENV = process.env.NODE_ENV || "dev";
 
+// ============= EXPIRATION TOKEN
+//60 Sec
+//60 Min
+//24 Hrs
+//30 Days
+process.env.EXPIRATION_TOKEN =  60 * 60 * 24 * 30;
+
+// ============= SEED
+
+process.env.SEED = process.env.SEED || `seed-dev` ;
+
 // ============= DB
 
 let urlDB;

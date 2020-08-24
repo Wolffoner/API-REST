@@ -3,17 +3,18 @@ const mongoose = require(`mongoose`);
 const express = require(`express`);
 const app = express();
 
+//Middlewares
 app.use(express.urlencoded({ extended: false }));
-app.use( require(`./routes/user.js`));
-
-// Middlewares
+//Config Routes
+app.use( require(`./routes/index.js`));
 
 mongoose.connect(
     process.env.URLDB,
     {
         useCreateIndex: true,
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false
     },
     (err, res) => {
         if (err) throw err;

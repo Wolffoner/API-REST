@@ -3,9 +3,13 @@ const bcrypt = require(`bcrypt`);
 const _ = require(`underscore`);
 const app = express();
 const User = require(`../models/user.js`);
+const {verifyToken, verifyAdminRole} = require(`../middlewares/authentication.js`);
+
 
 //GET LIST OF USERS
-app.get(`/user`, (req, res) => {
+app.get(`/user`, verifyToken, (req, res) => {
+
+
     let since = req.query.since || 0;
     since = Number(since);
     let limiter = req.query.limiter || 5;
@@ -40,7 +44,7 @@ app.get(`/user`, (req, res) => {
 });
 
 // POST CREATE USER
-app.post(`/user`, (req, res) => {
+app.post(`/user`, [verifyToken, verifyAdminRole], (req, res) => {
     let body = req.body;
 
     let user = new User({
@@ -65,7 +69,7 @@ app.post(`/user`, (req, res) => {
     });
 });
 // PUT UPDATE USER
-app.put(`/user/:id`, (req, res) => {
+app.put(`/user/:id`, [verifyToken, verifyAdminRole], (req, res) => {
     let id = req.params.id;
     let body = _.pick(req.body, ["name", "email", "img", "role" ]);
     User.findOneAndUpdate(
@@ -89,7 +93,7 @@ app.put(`/user/:id`, (req, res) => {
 });
 
 //DELETE: DELETE USER
-app.delete(`/user/:id`, (req, res) => {
+app.delete(`/user/:id`, [verifyToken, verifyAdminRole], (req, res) => {
     let id = req.params.id;
 let changeState = {
     state: false
@@ -110,7 +114,7 @@ User.findOneAndUpdate({ _id: id }, changeState, {new: true}, (err, userDelete) =
         } else {
             res.json({
                 OK: true,
-                userDelete
+                user: userDelete
             });
         }
     });
