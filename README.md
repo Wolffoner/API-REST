@@ -22,7 +22,7 @@ a response token with which you can use the CRUD in 'localhost:port/user' depend
 
 ## Tools
 
--MongoDB
+- MongoDB
 - NodeJS
 - nVim
 - Linux Terminal
