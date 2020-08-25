@@ -1,13 +1,13 @@
 # API REST
 
 API REST to Create, Read, Update, Delete of a Coffe Store with authentication in JWT.
-[API REST](https://wolff-webpage.herokuapp.com/)
+[API REST](https://secure-earth-67672.herokuapp.com/)
 
 ## Install
 
 Install yarn First:
 
-[Install yarn here!](https://secure-earth-67672.herokuapp.com/)
+[Install yarn here!](hhttps://classic.yarnpkg.com/en/docs/install/#windows-stable)
 
 
 ```
